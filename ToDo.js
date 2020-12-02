@@ -13,7 +13,10 @@ class ToDo {
 
     setTasks(newTasks) {
         this.tasks = newTasks
-        localStorage.setItem(this.storageKey, JSON.stringify(this.tasks))
+        
+        // @TODO we cant save items without knowledge about REST API
+        // localStorage.setItem(this.storageKey, JSON.stringify(this.tasks))
+        
         this.render()
     }
 
