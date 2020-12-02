@@ -24,13 +24,13 @@
     <script src="./ToDo.js"></script>
 
     <script>
-        const todo1 = new ToDo('todo-1')
-        // const todo2 = new ToDo('todo-2')
-        // const todo3 = new ToDo('todo-3')
+        const todo1 = new ToDo('/data1.json')
+        const todo2 = new ToDo('/data2.json')
+        const todo3 = new ToDo('/data3.json')
 
         document.querySelector('.todo-1').appendChild(todo1.render())
-        // document.querySelector('.todo-2').appendChild(todo2.render())
-        // document.querySelector('.todo-3').appendChild(todo3.render())
+        document.querySelector('.todo-2').appendChild(todo2.render())
+        document.querySelector('.todo-3').appendChild(todo3.render())
     </script>
 
 </body>

@@ -1,7 +1,7 @@
 class ToDo {
 
-    constructor(storageKey) {
-        this.storageKey = storageKey || 'todo'
+    constructor(url) {
+        this.url = url || '/data1.json'
         this.container = null
         this.tasks = []
 
@@ -9,7 +9,7 @@ class ToDo {
     }
 
     loadTasks() {
-        return fetchData('/data1.json')
+        return fetchData(this.url)
             .then((data) => {
                 const tasks = data && data.tasks
                 this.setTasks(tasks || [])
@@ -20,7 +20,6 @@ class ToDo {
         this.tasks = newTasks
 
         // @TODO we cant save items without knowledge about REST API
-        // localStorage.setItem(this.storageKey, JSON.stringify(this.tasks))
 
         this.render()
     }
