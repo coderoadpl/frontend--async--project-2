@@ -3,13 +3,29 @@ class ToDo {
     constructor(url) {
         this.url = url || '/data1.json'
         this.container = null
-        this.tasks = []
+        this.tasks = null
+        this.isLoading = true
+        this.hasError = null
 
         this.loadTasks()
     }
 
     loadTasks() {
-        return fetchData(this.url)
+        return fetchData(
+            this.url,
+            {
+                startCallback: () => {
+                    this.isLoading = true
+                    this.hasError = null
+                },
+                catchCallback: (error) => {
+                    this.hasError = error
+                },
+                endCallback: () => {
+                    this.isLoading = false
+                },
+            }
+        )
             .then((data) => {
                 const tasks = data && data.tasks
                 this.setTasks(tasks || [])
@@ -52,6 +68,24 @@ class ToDo {
     }
 
     renderTasks() {
+        if (this.hasError) {
+            const message = new Message('Error ocurred!')
+            this.container.appendChild(message.render())
+            return
+        }
+
+        if (this.isLoading) {
+            const message = new Message('Loading...')
+            this.container.appendChild(message.render())
+            return
+        }
+
+        if (this.tasks.length === 0) {
+            const message = new Message('Nothing here!')
+            this.container.appendChild(message.render())
+            return
+        }
+
         this.tasks.forEach((taskData, index) => {
             const task = new Task(
                 taskData,
